@@ -74,7 +74,7 @@ public class Shooter : MonoBehaviour
                 if (!IsInvoking("Shoot"))
                 {
                  
-                    InvokeRepeating("Shoot", 0f, attackRate);
+                    InvokeRepeating("Shoot", 0.5f, attackRate);
                 } 
             }
             else if(Input.GetMouseButtonUp(0))
@@ -84,6 +84,15 @@ public class Shooter : MonoBehaviour
         }else if(equiptWeapon == Weapon.WeaponType.BOMB)
         {
             HandleGrenadeThrowing();
+        }
+
+        if (equiptWeapon != Weapon.WeaponType.AK)
+        {
+            if (IsInvoking("Shoot")) 
+            {
+                CancelInvoke("Shoot");
+
+            }
         }
     }
 

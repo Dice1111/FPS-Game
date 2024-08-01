@@ -9,6 +9,10 @@ public class Explosion : MonoBehaviour
     public float delay = 4.0f;
     public float anidelay = 1f;
     public GameObject explosionPrefab;
+    public GameObject explosionSound;
+    private AudioSource audioSource;
+
+
 
     private void OnCollisionEnter(Collision collision)
     {
@@ -36,14 +40,15 @@ public class Explosion : MonoBehaviour
             }
         }
 
-        StartCoroutine(GeneratePS());
+
+        GameObject bombExplodeSFX = Instantiate(explosionSound,transform.position,Quaternion.identity);
+        GameObject ps = Instantiate(explosionPrefab, transform.position, Quaternion.identity);
+        audioSource = bombExplodeSFX.GetComponent<AudioSource>();
+        audioSource.Play();
+        Destroy(audioSource,2f);
+        Destroy(ps, 2f);
         Destroy(gameObject);
     }
 
-    private IEnumerator GeneratePS()
-    {
-        GameObject ps = Instantiate(explosionPrefab, transform.position, Quaternion.identity);
-        yield return new WaitForSeconds(anidelay);
-        Destroy(ps);
-    }
+  
 }
