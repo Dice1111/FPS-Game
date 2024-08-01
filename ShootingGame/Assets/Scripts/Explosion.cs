@@ -29,12 +29,12 @@ public class Explosion : MonoBehaviour
         foreach (Collider hit in colliders)
         {
             Rigidbody rb = hit.GetComponent<Rigidbody>();
-            Shootable shootcomponent = hit.GetComponent<Shootable>();
+            
 
-            if (rb != null && shootcomponent != null)
+            if (rb != null & hit.CompareTag("Enemy"))
             {
                 rb.AddExplosionForce(power, explosionPos, radius, 3.0f, ForceMode.Impulse);
-                Renderer renderer = shootcomponent.GetComponent<Renderer>();
+                Renderer renderer = hit.GetComponent<Renderer>();
                 Color randomColor = new Color(Random.value, Random.value, Random.value);
                 renderer.material.color = randomColor;
             }
